@@ -3,19 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Pelota Escaladora</title>
   <link rel="stylesheet" href="/style/style.css" />
 </head>
 <body>
-    <div id="mainMenu">
-        <h1>Pelota Escaladora</h1>
-        <button id="startButton">Jugar</button>
-    </div>
+  <div id="mainMenu" style="display: flex; flex-direction: column; align-items: center;">
+    <h1>Escalador de Pelotas</h1>
+    <label for="characterSelect">Elegí el color de tu personaje:</label>
+    <select id="characterSelect">
+      <option value="red">Rojo</option>
+      <option value="green">Verde</option>
+      <option value="blue">Azul</option>
+      <option value="yellow">Amarillo</option>
+    </select>
+    <div id="characterPreview" style="margin: 20px; width: 50px; height: 50px; border-radius: 50%; background-color: red;"></div>
+    <button id="startButton">Iniciar Juego</button>
+  </div>
     <div id="gameOverMenu" style="display: none;">
         <h2>¡Game Over!</h2>
         <p id="finalScore"></p>
         <button id="restartButton">Reiniciar</button>
     </div>
+    <div id="mobileControls">
+      <button id="leftBtn">◀</button>
+      <button id="jumpBtn">⬆</button>
+      <button id="rightBtn">▶</button>
+    </div>
+    
   <canvas id="gameCanvas"></canvas>
   <script src="/game/game.js"></script>
 </body>

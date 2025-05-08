@@ -83,3 +83,19 @@ body, html {
   #gameOverMenu button:hover {
     background: #39c;
   }
+  #mobileControls {
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    z-index: 10;
+  }
+  
+  #mobileControls button {
+    font-size: 24px;
+    padding: 15px 25px;
+    border-radius: 10px;
+  }
+  
