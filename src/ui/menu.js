@@ -1,5 +1,6 @@
-import { worlds } from "../worlds/worldsConfig.js"
-import { startGame } from "../core/state.js"
+import { worlds, worldList } from "../worlds/worldsConfig.js"
+
+export let menuButtons = []
 
 export function drawMenu(ctx,canvas){
 
@@ -9,15 +10,27 @@ ctx.fillRect(0,0,canvas.width,canvas.height)
 ctx.fillStyle="white"
 ctx.font="40px Arial"
 
-ctx.fillText("PELota Escaladora",canvas.width/2-200,100)
+ctx.fillText("Pelota Escaladora",canvas.width/2-170,100)
 
-let y=200
+menuButtons = []
 
-Object.keys(worlds).forEach((w)=>{
+let y = 200
 
-ctx.fillText("Jugar en "+worlds[w].name,100,y)
+worldList.forEach((world)=>{
 
-y+=60
+const text = "Jugar en " + worlds[world].name
+
+ctx.fillText(text,100,y)
+
+menuButtons.push({
+world: world,
+x:100,
+y:y-30,
+width:300,
+height:40
+})
+
+y += 60
 
 })
 

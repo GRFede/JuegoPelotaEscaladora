@@ -5,10 +5,13 @@ constructor(x,y){
 this.x=x
 this.y=y
 this.radius=10
+this.collected=false
 
 }
 
 draw(ctx){
+
+if(this.collected) return
 
 ctx.fillStyle="yellow"
 

@@ -1,17 +1,15 @@
-export class Portal{
+import { startGame } from "../core/state.js"
 
-constructor(x,y){
+export function checkPortal(player,portal){
 
-this.x=x
-this.y=y
-this.size=40
+const dx = player.x - portal.x
+const dy = player.y - portal.y
 
-}
+const dist = Math.sqrt(dx*dx + dy*dy)
 
-draw(ctx){
+if(dist < player.radius + portal.radius){
 
-ctx.strokeStyle="purple"
-ctx.strokeRect(this.x,this.y,this.size,this.size)
+startGame(portal.targetWorld)
 
 }
 
