@@ -2,6 +2,7 @@ import { handlePlatformCollision } from "../systems/collisionSystem.js"
 import { collectCoins } from "../systems/coinSystem.js"
 import { checkEnemyCollision } from "../systems/enemySystem.js"
 import { checkPortal } from "../systems/portalSystem.js"
+import { worldList } from "../worlds/worldsConfig.js"
 
 import { Coin } from "../objects/coin.js"
 import { Enemy } from "../objects/enemy.js"
@@ -16,14 +17,19 @@ import { ProceduralGenerator } from "../systems/proceduralGenerator.js"
 
 import { drawHUD } from "../ui/hud.js"
 import { drawMenu, menuButtons } from "../ui/menu.js"
-
+import { drawWorldBackground } from "../worlds/worldRenderer.js"
 import { gameState,startGame } from "./state.js"
+
+import { PowerUp } from "../objects/powerup.js"
+import { collectPowerUps } from "../systems/powerupSystem.js"
+import { effects,updateEffects } from "../systems/powerupEffects.js"
 
 import { Camera } from "./camera.js"
 
 
 const coins=[]
 const enemies=[]
+const powerups=[]
 
 const player = new Player(400,600)
 
@@ -31,9 +37,9 @@ const camera = new Camera()
 
 const platforms=[]
 
-const generator = new ProceduralGenerator(platforms,coins,enemies)
+const generator = new ProceduralGenerator(platforms,coins,enemies,powerups)
 
-const portal = new Portal(400,-2000,"egypt")
+const portal = new Portal(400,-2000,getNextWorld())
 
 for(let i=0;i<10;i++){
 
@@ -101,6 +107,19 @@ break
 
 })
 
+function getNextWorld(){
+
+const index = worldList.indexOf(gameState.world)
+
+if(index < worldList.length - 1){
+
+return worldList[index + 1]
+
+}
+
+return worldList[0]
+
+}
 
 function update(){
 
@@ -111,6 +130,10 @@ player.update()
 camera.update(player)
 
 generator.update(camera.y)
+
+collectPowerUps(player,powerups,effects)
+
+updateEffects()
 
 handlePlatformCollision(player,platforms)
 
@@ -129,7 +152,7 @@ gameState.score++
 
 function draw(){
 
-ctx.clearRect(0,0,canvas.width,canvas.height)
+drawWorldBackground(ctx,canvas,gameState.world)
 
 if(gameState.mode==="menu"){
 
@@ -137,6 +160,8 @@ drawMenu(ctx,canvas)
 return
 
 }
+
+powerups.forEach(p=>p.draw(ctx))
 
 ctx.save()
 

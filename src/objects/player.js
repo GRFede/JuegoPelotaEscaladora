@@ -23,11 +23,25 @@ this.velY+=this.gravity
 this.x+=this.velX
 this.y+=this.velY
 
+if(effects.jetpack > 0){
+
+this.velY = -8
+
+}
+
 }
 
 jump(){
 
-this.velY=this.jumpForce
+if(effects.superJump > 0){
+
+this.velY = -22
+
+}else{
+
+this.velY = this.jumpForce
+
+}
 
 }
 
