@@ -3,6 +3,7 @@ import { collectCoins } from "../systems/coinSystem.js"
 import { checkEnemyCollision } from "../systems/enemySystem.js"
 import { checkPortal } from "../systems/portalSystem.js"
 import { worldList } from "../worlds/worldsConfig.js"
+import { menuButtons } from "../ui/menu.js"
 
 import { Coin } from "../objects/coin.js"
 import { Enemy } from "../objects/enemy.js"
@@ -16,7 +17,7 @@ import { Platform } from "../objects/platform.js"
 import { ProceduralGenerator } from "../systems/proceduralGenerator.js"
 
 import { drawHUD } from "../ui/hud.js"
-import { drawMenu, menuButtons } from "../ui/menu.js"
+import { drawMenu } from "../ui/menu.js"
 import { drawWorldBackground } from "../worlds/worldRenderer.js"
 import { gameState,startGame } from "./state.js"
 
@@ -40,6 +41,29 @@ const platforms=[]
 const generator = new ProceduralGenerator(platforms,coins,enemies,powerups)
 
 const portal = new Portal(400,-2000,getNextWorld())
+
+function handleMenuAction(action){
+
+switch(action){
+
+case "start":
+
+startGame("prehistoric")
+break
+
+case "worlds":
+
+console.log("Seleccionar mundo (se implementará)")
+break
+
+case "options":
+
+console.log("Opciones futuras")
+break
+
+}
+
+}
 
 for(let i=0;i<10;i++){
 
@@ -77,35 +101,48 @@ player.stop()
 
 })
 
+canvas.addEventListener("click",(event)=>{
 
-canvas.addEventListener("click",(e)=>{
+console.log("CLICK DETECTADO")
+
+})
+
+canvas.addEventListener("click",(event)=>{
+
+console.log("modo actual:",gameState.mode)
+
+})
+
+canvas.addEventListener("click",(event)=>{
 
 if(gameState.mode !== "menu") return
 
 const rect = canvas.getBoundingClientRect()
 
-const mouseX = e.clientX - rect.left
-const mouseY = e.clientY - rect.top
+const mouseX = event.clientX - rect.left
+const mouseY = event.clientY - rect.top
 
-for(let i=0;i<menuButtons.length;i++){
+console.log("click en:",mouseX,mouseY)
 
-const button = menuButtons[i]
+for(let btn of menuButtons){
 
 if(
-mouseX >= button.x &&
-mouseX <= button.x + button.width &&
-mouseY >= button.y &&
-mouseY <= button.y + button.height
+mouseX >= btn.x &&
+mouseX <= btn.x + btn.width &&
+mouseY >= btn.y &&
+mouseY <= btn.y + btn.height
 ){
 
-startGame(button.world)
-break
+console.log("boton presionado:",btn.label)
+
+handleMenuAction(btn.action)
 
 }
 
 }
 
 })
+
 
 function getNextWorld(){
 

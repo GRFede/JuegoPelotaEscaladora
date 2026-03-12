@@ -2,9 +2,9 @@ import { Platform } from "../objects/platform.js"
 import { Coin } from "../objects/coin.js"
 import { Enemy } from "../objects/enemy.js"
 import { worlds } from "../worlds/worldsConfig.js"
-import { gameState } from "../core/state.js"
 import { createEnemyByWorld } from "../worlds/enemyTypes.js"
 import { PowerUp } from "../objects/powerup.js"
+import { gameState } from "../game/state.js"
 
 export class ProceduralGenerator{
 
@@ -23,7 +23,7 @@ generate(){
 
 const world = worlds[gameState.world]
 
-const difficulty = world.difficulty
+let difficulty = gameState?.difficulty || 1
 
 const gap = 120 * difficulty
 
