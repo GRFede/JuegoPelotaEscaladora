@@ -1,32 +1,13 @@
-export const gameState = {
+export const state = {
 
-mode: "menu",
+player: null,
 
-currentWorld: "prehistoric",
-
-level: 1,
+platforms: [],
+coins: [],
 
 score: 0,
+coinsCollected: 0,
 
-coins: 0,
-
-difficulty: 1
-
-}
-
-export function startGame(world){
-
-gameState.mode = "playing"
-gameState.currentWorld = world
-gameState.level = 1
-gameState.score = 0
-gameState.coins = 0
-gameState.difficulty = 1
-
-}
-
-export function goToMenu(){
-
-gameState.mode = "menu"
+currentWorld: 0
 
 }

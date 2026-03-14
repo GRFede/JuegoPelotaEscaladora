@@ -1,77 +1,68 @@
-export class Player{
+import { input } from "../systems/input.js"
 
-constructor(x,y){
+export function createPlayer(x,y){
 
-this.x=x
-this.y=y
+return {
 
-this.radius=20
+x,
+y,
 
-this.velY=0
-this.velX=0
+width:30,
+height:30,
 
-this.gravity=0.6
+vx:0,
+vy:0,
 
-this.jumpForce=-15
+speed:4,
+jumpForce:12,
+gravity:0.6,
 
-}
+onGround:false,
 
 update(){
 
-this.velY+=this.gravity
+// movimiento horizontal
 
-this.x+=this.velX
-this.y+=this.velY
+if(input.left){
+this.vx = -this.speed
+}
+else if(input.right){
+this.vx = this.speed
+}
+else{
+this.vx = 0
+}
 
-if(effects.jetpack > 0){
+this.x += this.vx
 
-this.velY = -8
+// salto
+
+if(input.jump && this.onGround){
+
+this.vy = -this.jumpForce
+this.onGround = false
 
 }
 
-}
+// gravedad
 
-jump(){
+this.vy += this.gravity
+this.y += this.vy
 
-if(effects.superJump > 0){
-
-this.velY = -22
-
-}else{
-
-this.velY = this.jumpForce
-
-}
-
-}
-
-moveLeft(){
-
-this.velX=-5
-
-}
-
-moveRight(){
-
-this.velX=5
-
-}
-
-stop(){
-
-this.velX=0
-
-}
+},
 
 draw(ctx){
 
-ctx.fillStyle="orange"
+ctx.fillStyle="lime"
 
-ctx.beginPath()
+ctx.fillRect(
+this.x,
+this.y,
+this.width,
+this.height
+)
 
-ctx.arc(this.x,this.y,this.radius,0,Math.PI*2)
-
-ctx.fill()
+}
 
 }
 

@@ -1,18 +1,21 @@
-export class Platform{
+export function createPlatform(x,y,w,h){
 
-constructor(x,y,w,h){
+return {
 
-this.x=x
-this.y=y
-this.w=w
-this.h=h
-
-}
+x,y,w,h,
 
 draw(ctx){
 
-ctx.fillStyle="white"
-ctx.fillRect(this.x,this.y,this.w,this.h)
+ctx.fillStyle="brown"
+
+ctx.fillRect(
+this.x,
+this.y,
+this.w,
+this.h
+)
+
+}
 
 }
 
